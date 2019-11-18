@@ -35,8 +35,8 @@ deploy:
   region: "$REGION"
   app: "random-status"
   env: "RandomStatus-env"
-  bucket: 'elasticbeanstalk-us-east-2-307045200927'
-  bucket_path: 'random-status'
+  bucket_name: "elasticbeanstalk-us-east-2-307045200927/random-status"
   skip_cleanup: true
   on:
     branch: master
+
