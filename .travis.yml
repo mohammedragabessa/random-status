@@ -22,9 +22,21 @@ branches:
   only:
     - master
 
-before_deploy: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+before_deploy:
+  - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+  - docker push mohamedragabessa/random-status:latest
+
 deploy:
-  provider: script
-  script: docker push mohamedragabessa/random-status:latest
+  provider: elasticbeanstalk
+  access_key_id:
+    secure: "$ACCESSKEYID"
+  secret_access_key:
+    secure: "$SECRETACCESSKEY"
+  region: "$REGION"
+  app: "random-status"
+  env: "RandomStatus-env"
+  bucket_path: 'random-status'
+  bucket_name: "elasticbeanstalk-us-east-2-307045200927"
+  skip_cleanup: true
   on:
     branch: master
